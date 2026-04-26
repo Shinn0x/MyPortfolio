@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Shinn | Cloud & DevOps Portfolio</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Sora:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0a0e17;
+    --bg2: #0f1521;
+    --bg3: #141c2e;
+    --surface: #1a2335;
+    --surface2: #1f2a3d;
+    --border: rgba(99,179,237,0.12);
+    --border2: rgba(99,179,237,0.22);
+    --accent: #3b82f6;
+    --accent2: #60a5fa;
+    --accent3: #93c5fd;
+    --teal: #2dd4bf;
+    --teal2: #5eead4;
+    --orange: #fb923c;
+    --text: #e2e8f0;
+    --text2: #94a3b8;
+    --text3: #64748b;
+    --mono: 'Space Mono', monospace;
+    --sans: 'Sora', sans-serif;
+    --glow: 0 0 40px rgba(59,130,246,0.12);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* Grid lines background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(59,130,246,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(59,130,246,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 3rem;
+    background: rgba(10,14,23,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: var(--mono);
+    font-size: 1rem;
+    color: var(--accent2);
+    letter-spacing: 0.05em;
+  }
+
+  .nav-logo span { color: var(--teal); }
+
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+  }
+
+  nav ul a {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--text2);
+    text-decoration: none;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  nav ul a:hover { color: var(--accent2); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 8rem 3rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    top: -200px; right: -200px;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(59,130,246,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-tag {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--teal);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .hero-tag::before {
+    content: '';
+    display: inline-block;
+    width: 2rem;
+    height: 1px;
+    background: var(--teal);
+  }
+
+  .hero h1 {
+    font-family: var(--sans);
+    font-size: clamp(3rem, 8vw, 6rem);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    margin-bottom: 0.5rem;
+    color: #fff;
+  }
+
+  .hero h1 .blue { color: var(--accent2); }
+
+  .hero-subtitle {
+    font-size: clamp(1.25rem, 3vw, 1.75rem);
+    font-weight: 300;
+    color: var(--text2);
+    margin-bottom: 2rem;
+    max-width: 600px;
+  }
+
+  .hero-desc {
+    font-size: 1rem;
+    color: var(--text3);
+    max-width: 540px;
+    line-height: 1.8;
+    margin-bottom: 2.5rem;
+  }
+
+  .hero-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-bottom: 3rem;
+  }
+
+  .badge {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    padding: 0.3rem 0.75rem;
+    border-radius: 2px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .badge-blue  { background: rgba(59,130,246,0.12); color: var(--accent3); border: 1px solid rgba(59,130,246,0.25); }
+  .badge-teal  { background: rgba(45,212,191,0.1);  color: var(--teal2);   border: 1px solid rgba(45,212,191,0.2);  }
+  .badge-orange{ background: rgba(251,146,60,0.1);  color: #fdba74;        border: 1px solid rgba(251,146,60,0.2);  }
+
+  .hero-cta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.75rem 1.5rem;
+    border-radius: 2px;
+    text-decoration: none;
+    transition: all 0.2s;
+    cursor: pointer;
+    display: inline-block;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: #fff;
+    border: 1px solid var(--accent);
+  }
+
+  .btn-primary:hover {
+    background: var(--accent2);
+    border-color: var(--accent2);
+    transform: translateY(-1px);
+  }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--text2);
+    border: 1px solid var(--border2);
+  }
+
+  .btn-ghost:hover {
+    border-color: var(--accent2);
+    color: var(--accent2);
+    transform: translateY(-1px);
+  }
+
+  /* Scroll indicator */
+  .scroll-hint {
+    position: absolute;
+    bottom: 2rem;
+    left: 3rem;
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--text3);
+    letter-spacing: 0.1em;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .scroll-hint::after {
+    content: '';
+    display: block;
+    width: 1px;
+    height: 3rem;
+    background: linear-gradient(to bottom, var(--text3), transparent);
+  }
+
+  /* ── SECTION BASE ── */
+  section.section {
+    padding: 6rem 3rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .section-label {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--teal);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .section-label::before {
+    content: attr(data-num);
+    color: var(--text3);
+  }
+
+  .section-title {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: -0.02em;
+    margin-bottom: 3rem;
+    max-width: 600px;
+  }
+
+  /* ── ABOUT ── */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    max-width: 900px;
+  }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1.75rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--teal));
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  .card:hover {
+    border-color: var(--border2);
+    box-shadow: var(--glow);
+  }
+
+  .card:hover::before { opacity: 1; }
+
+  .card-icon {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+  }
+
+  .card h4 {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 0.75rem;
+    letter-spacing: 0.01em;
+  }
+
+  .card p {
+    font-size: 0.875rem;
+    color: var(--text2);
+    line-height: 1.75;
+  }
+
+  .card.wide { grid-column: 1 / -1; }
+
+  /* ── SKILLS ── */
+  .skills-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+  }
+
+  .skill-tag {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    padding: 0.3rem 0.65rem;
+    background: rgba(59,130,246,0.08);
+    border: 1px solid rgba(59,130,246,0.18);
+    color: var(--accent3);
+    border-radius: 2px;
+    letter-spacing: 0.05em;
+  }
+
+  .skill-tag.teal {
+    background: rgba(45,212,191,0.08);
+    border-color: rgba(45,212,191,0.18);
+    color: var(--teal2);
+  }
+
+  /* ── TIMELINE / EXPERIENCE ── */
+  .timeline {
+    max-width: 700px;
+    position: relative;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    top: 0; bottom: 0;
+    left: 1rem;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--accent), var(--teal), transparent);
+  }
+
+  .timeline-item {
+    padding-left: 3.5rem;
+    padding-bottom: 3rem;
+    position: relative;
+  }
+
+  .timeline-dot {
+    position: absolute;
+    left: 0.55rem;
+    top: 0.35rem;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 2px solid var(--bg);
+    box-shadow: 0 0 8px var(--accent);
+  }
+
+  .timeline-dot.teal {
+    background: var(--teal);
+    box-shadow: 0 0 8px var(--teal);
+  }
+
+  .timeline-period {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--text3);
+    letter-spacing: 0.08em;
+    margin-bottom: 0.35rem;
+  }
+
+  .timeline-role {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 0.2rem;
+  }
+
+  .timeline-org {
+    font-size: 0.85rem;
+    color: var(--accent2);
+    margin-bottom: 0.75rem;
+  }
+
+  .timeline-desc {
+    font-size: 0.875rem;
+    color: var(--text2);
+    line-height: 1.75;
+  }
+
+  /* ── LEARNING / FOCUS ── */
+  .focus-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    max-width: 900px;
+  }
+
+  .focus-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1.5rem 1.25rem;
+    transition: all 0.2s;
+    text-align: center;
+  }
+
+  .focus-card:hover {
+    border-color: var(--teal2);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(45,212,191,0.08);
+  }
+
+  .focus-icon {
+    width: 48px; height: 48px;
+    border-radius: 8px;
+    margin: 0 auto 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+  }
+
+  .focus-icon.aws    { background: rgba(251,146,60,0.12);  }
+  .focus-icon.docker { background: rgba(59,130,246,0.12);  }
+  .focus-icon.k8s    { background: rgba(45,212,191,0.1);   }
+  .focus-icon.linux  { background: rgba(148,163,184,0.1);  }
+
+  .focus-card h4 {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 0.4rem;
+  }
+
+  .focus-card p {
+    font-size: 0.8rem;
+    color: var(--text3);
+    line-height: 1.6;
+  }
+
+  /* ── GOALS ── */
+  .goals-card {
+    max-width: 700px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 2.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .goals-card::after {
+    content: '';
+    position: absolute;
+    bottom: -60px; right: -60px;
+    width: 200px; height: 200px;
+    background: radial-gradient(circle, rgba(45,212,191,0.06) 0%, transparent 70%);
+  }
+
+  .goals-card blockquote {
+    font-size: 1.1rem;
+    font-weight: 300;
+    color: var(--text2);
+    line-height: 1.85;
+    font-style: normal;
+    border-left: 2px solid var(--teal);
+    padding-left: 1.25rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .goals-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .goals-list li {
+    font-size: 0.875rem;
+    color: var(--text2);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .goals-list li::before {
+    content: '';
+    display: inline-block;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--teal);
+    flex-shrink: 0;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2.5rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  footer p {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--text3);
+    letter-spacing: 0.06em;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 1.5rem;
+  }
+
+  .footer-links a {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--text3);
+    text-decoration: none;
+    letter-spacing: 0.08em;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: var(--accent2); }
+
+  /* ── DIVIDER ── */
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border2), transparent);
+    margin: 0 3rem;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero h1       { animation: fadeUp 0.7s ease both; }
+  .hero-subtitle { animation: fadeUp 0.7s 0.1s ease both; }
+  .hero-desc     { animation: fadeUp 0.7s 0.2s ease both; }
+  .hero-badges   { animation: fadeUp 0.7s 0.3s ease both; }
+  .hero-cta      { animation: fadeUp 0.7s 0.4s ease both; }
+  .hero-tag      { animation: fadeUp 0.7s 0.0s ease both; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 700px) {
+    nav { padding: 1rem 1.5rem; }
+    nav ul { display: none; }
+    .hero { padding: 7rem 1.5rem 3rem; }
+    section.section { padding: 4rem 1.5rem; }
+    footer { padding: 2rem 1.5rem; flex-direction: column; gap: 1rem; text-align: center; }
+    .about-grid { grid-template-columns: 1fr; }
+    .card.wide { grid-column: auto; }
+    .divider { margin: 0 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo"><span>&gt;_</span> shinn.dev</div>
+  <ul>
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#learning">Learning</a></li>
+    <li><a href="#goals">Goals</a></li>
+    <li><a href="/family-grad-trip">Grad Trip</a></li>
+    <li><a href="/relationship">Relationship</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-tag">Cloud & DevOps Portfolio</div>
+  <h1>Hi, I'm <span class="blue">Shinn.</span></h1>
+  <p class="hero-subtitle">Aspiring Cloud &amp; DevOps Engineer</p>
+  <p class="hero-desc">
+    IT graduate from Singapore Polytechnic, building hands-on skills in 
+    AWS, Linux, Docker, and Kubernetes. I learn by doing — spinning up real environments,
+    breaking things, and fixing them.
+  </p>
+  <div class="hero-badges">
+    <span class="badge badge-orange">AWS</span>
+    <span class="badge badge-blue">Docker</span>
+    <span class="badge badge-teal">Kubernetes</span>
+    <span class="badge badge-blue">Linux</span>
+    <span class="badge badge-teal">CI/CD</span>
+    <span class="badge badge-orange">Cloud Infrastructure</span>
+  </div>
+  <div class="hero-cta">
+    <a class="btn btn-primary" href="#learning">Current Focus</a>
+    <a class="btn btn-ghost" href="#experience">My Experience</a>
+  </div>
+  <div class="scroll-hint">scroll</div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ABOUT -->
+<section class="section" id="about">
+  <div class="section-label" data-num="01">About</div>
+  <h2 class="section-title">Background &amp; Skills</h2>
+  <div class="about-grid">
+    <div class="card">
+      <div class="card-icon">🎓</div>
+      <h4>Education</h4>
+      <p>Diploma in Information Technology from <strong style="color:#fff;">Singapore Polytechnic</strong>. Built a strong foundation in software development, networking, and systems thinking.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">💼</div>
+      <h4>Internship</h4>
+      <p>Completed an internship at <strong style="color:#fff;">Tuas Power Ltd</strong>, working on internal web systems and services hosted on <strong style="color:#fff;">Azure</strong> cloud using C# and .NET.</p>
+    </div>
+    <div class="card wide">
+      <div class="card-icon">🛠</div>
+      <h4>Technical Skills</h4>
+      
+<div class="skills-wrap" style="margin-bottom:0.75rem;">
+  <span class="skill-tag">C#</span>
+  <span class="skill-tag">.NET</span>
+  <span class="skill-tag">ASP.NET</span>
+  <span class="skill-tag">Java</span>
+  <span class="skill-tag">Spring Boot</span>
+  <span class="skill-tag">Python</span>
+  <span class="skill-tag">JavaScript</span>
+  <span class="skill-tag">React.js</span>
+  <span class="skill-tag">Next.js</span>
+  <span class="skill-tag">Express.js</span>
+  <span class="skill-tag">PostgreSQL</span>
+  <span class="skill-tag">Microsoft SQL Server</span>
+</div>
+      <div class="skills-wrap">
+        <span class="skill-tag teal">Linux</span>
+        <span class="skill-tag teal">Docker</span>
+        <span class="skill-tag teal">AWS</span>
+        <span class="skill-tag teal">Kubernetes</span>
+        <span class="skill-tag teal">CI/CD</span>
+        <span class="skill-tag teal">Git</span>
+        <span class="skill-tag teal">Azure (intern)</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- EXPERIENCE -->
+<section class="section" id="experience">
+  <div class="section-label" data-num="02">Experience</div>
+  <h2 class="section-title">Where I've Been</h2>
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-period">Apr 2025 – Feb 2026 · 1 Year</div>
+      <div class="timeline-role">IT Intern</div>
+      <div class="timeline-org">Tuas Power Ltd — Singapore</div>
+      <p class="timeline-desc">
+        Developed and maintained internal web applications and services for operational use. 
+        Worked with <strong style="color:#fff;">Azure cloud infrastructure</strong>, building 
+        integrations and services using <strong style="color:#fff;">C# and ASP.NET</strong>. 
+        Gained real-world exposure to enterprise-scale deployments and cloud-hosted services.
+      </p>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot teal"></div>
+      <div class="timeline-period">April 2023 – March 2026</div>
+      <div class="timeline-role">Diploma in Information Technology</div>
+      <div class="timeline-org">Singapore Polytechnic</div>
+      <p class="timeline-desc">
+        Studied software development, networking fundamentals, databases, and systems design. 
+        Worked on group projects, developing full-stack applications and learning collaborative engineering workflows.
+      </p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CURRENT LEARNING -->
+<section class="section" id="learning">
+  <div class="section-label" data-num="03">Learning</div>
+  <h2 class="section-title">Currently Studying</h2>
+  <div class="focus-grid">
+    <div class="focus-card">
+      <div class="focus-icon aws">☁️</div>
+      <h4>AWS</h4>
+      <p>EC2, S3, IAM, VPC, and core cloud services. Working toward AWS certification.</p>
+    </div>
+    <div class="focus-card">
+      <div class="focus-icon docker">🐳</div>
+      <h4>Docker</h4>
+      <p>Containerising apps, writing Dockerfiles, managing images and volumes.</p>
+    </div>
+    <div class="focus-card">
+      <div class="focus-icon k8s">⚙️</div>
+      <h4>Kubernetes</h4>
+      <p>Pods, deployments, services, and cluster management for container orchestration.</p>
+    </div>
+    <div class="focus-card">
+      <div class="focus-icon linux">🐧</div>
+      <h4>Linux</h4>
+      <p>CLI, file permissions, shell scripting, SSH, and system administration basics.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- GOALS -->
+<section class="section" id="goals">
+  <div class="section-label" data-num="04">Goals</div>
+  <h2 class="section-title">Where I'm Headed</h2>
+  <div class="goals-card">
+    <blockquote>
+      I want to become a Cloud or DevOps Engineer who can design, deploy, and 
+      manage resilient cloud infrastructure — turning complex systems into 
+      reliable, automated pipelines.
+    </blockquote>
+    <ul class="goals-list">
+      <li>Achieve AWS Cloud Practitioner &amp; Solutions Architect certification</li>
+      <li>Build and deploy personal projects on AWS using Docker &amp; Kubernetes</li>
+      <li>Set up full CI/CD pipelines with GitHub Actions</li>
+      <li>Deepen Linux administration and shell scripting skills</li>
+      <li>Land a junior Cloud / DevOps role in Singapore</li>
+    </ul>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 Shinn · Cloud &amp; DevOps Learner · Singapore</p>
+  <div class="footer-links">
+    <a href="https://github.com/Shinn0x" target="_blank">GitHub</a>
+  <!--  <a href="https://linkedin.com" target="_blank">LinkedIn</a> -->
+  </div>
+</footer>
+
+</body>
+</html>

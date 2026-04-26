@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Singapore Trip · May 2025</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #f5f0e8;
+    --ink: #1a1a1a;
+    --gold: #c9a84c;
+    --gold-light: #e8d4a0;
+    --sage: #7a9e7e;
+    --mist: #d4dfe6;
+    --coral: #e07a5f;
+    --night: #0d1117;
+    --card: #ffffff;
+    --border: rgba(201,168,76,0.25);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ─── HERO ─── */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: var(--night);
+    overflow: hidden;
+    padding: 3rem 2rem;
+  }
+
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 0%, rgba(201,168,76,0.18) 0%, transparent 70%),
+      radial-gradient(ellipse 60% 80% at 80% 100%, rgba(122,158,126,0.15) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 50% at 10% 60%, rgba(224,122,95,0.12) 0%, transparent 60%);
+  }
+
+  .skyline {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 220px;
+    opacity: 0.12;
+  }
+
+  .hero-badge {
+    display: inline-block;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    padding: 0.4rem 1.2rem;
+    border-radius: 999px;
+    margin-bottom: 2rem;
+    animation: fadeUp 0.8s ease both;
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 8vw, 6rem);
+    color: #fff;
+    line-height: 1.05;
+    animation: fadeUp 0.9s 0.1s ease both;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .hero-sub {
+    margin-top: 1.5rem;
+    color: rgba(255,255,255,0.5);
+    font-size: 1rem;
+    letter-spacing: 0.05em;
+    animation: fadeUp 1s 0.2s ease both;
+  }
+
+  .hero-dates {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 3rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    animation: fadeUp 1s 0.35s ease both;
+  }
+
+  .hero-date-pill {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    backdrop-filter: blur(10px);
+    padding: 0.6rem 1.4rem;
+    border-radius: 999px;
+    color: rgba(255,255,255,0.75);
+    font-size: 0.85rem;
+    letter-spacing: 0.03em;
+  }
+
+  .hero-date-pill span { color: var(--gold); font-weight: 500; }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    color: rgba(255,255,255,0.3);
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    animation: fadeUp 1s 0.6s ease both;
+  }
+
+  .scroll-line {
+    width: 1px; height: 40px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+
+  /* ─── LAYOUT ─── */
+  .container {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  /* ─── DAY SECTIONS ─── */
+  .day-section {
+    padding: 5rem 0 2rem;
+  }
+
+  .day-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .day-header.visible { opacity: 1; transform: translateY(0); }
+
+  .day-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 5rem;
+    line-height: 1;
+    color: var(--gold-light);
+    opacity: 0.5;
+    flex-shrink: 0;
+    user-select: none;
+  }
+
+  .day-info { padding-top: 0.5rem; }
+
+  .day-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.3rem;
+  }
+
+  .day-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    color: var(--ink);
+    line-height: 1.2;
+  }
+
+  .day-title em { font-style: italic; color: var(--coral); }
+
+  .day-date {
+    margin-top: 0.4rem;
+    font-size: 0.85rem;
+    color: #888;
+  }
+
+  /* ─── TIMELINE ─── */
+  .timeline {
+    position: relative;
+    padding-left: 2.5rem;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0.55rem;
+    top: 0.5rem;
+    bottom: 0.5rem;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--gold) 0%, var(--mist) 60%, transparent 100%);
+  }
+
+  .block {
+    position: relative;
+    margin-bottom: 1.8rem;
+    opacity: 0;
+    transform: translateX(-12px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .block.visible { opacity: 1; transform: translateX(0); }
+
+  .block-dot {
+    position: absolute;
+    left: -2.15rem;
+    top: 0.85rem;
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    border: 2px solid var(--gold);
+    background: var(--cream);
+  }
+
+  .block-dot.filled { background: var(--gold); }
+
+  .block-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.4rem 1.6rem;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.04);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+  }
+
+  .block-card:hover {
+    box-shadow: 0 8px 40px rgba(0,0,0,0.1);
+    transform: translateY(-2px);
+  }
+
+  .block-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    margin-bottom: 0.6rem;
+    flex-wrap: wrap;
+  }
+
+  .block-icon { font-size: 1.1rem; }
+
+  .block-time {
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #aaa;
+    font-weight: 500;
+  }
+
+  .block-tag {
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.7rem;
+    border-radius: 999px;
+    font-weight: 500;
+  }
+
+  .tag-nature { background: #e8f3e9; color: var(--sage); }
+  .tag-food   { background: #fef3ee; color: var(--coral); }
+  .tag-explore{ background: #edf3f8; color: #5a85a8; }
+  .tag-event  { background: #fdf8ee; color: var(--gold); border: 1px solid var(--gold-light); }
+  .tag-night  { background: #f0edf8; color: #7a6a9e; }
+  .tag-grad   { background: #fff0f0; color: #c06060; }
+  .tag-tip    { background: #f0f8f0; color: #5a8a5a; }
+
+  .block-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    color: var(--ink);
+    margin-bottom: 0.4rem;
+  }
+
+  .block-body {
+    font-size: 0.88rem;
+    color: #555;
+    line-height: 1.65;
+  }
+
+  .block-body ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 0.5rem;
+  }
+
+  .block-body ul li {
+    padding: 0.2rem 0;
+    padding-left: 1.1rem;
+    position: relative;
+  }
+
+  .block-body ul li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--gold);
+    font-size: 0.8rem;
+  }
+
+  /* OPTIONS cards */
+  .options-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .option-card {
+    background: #fafafa;
+    border: 1px solid #eee;
+    border-radius: 12px;
+    padding: 1.1rem 1.3rem;
+  }
+
+  .option-card.featured {
+    background: linear-gradient(135deg, #fffbf0, #fff8e8);
+    border-color: var(--gold-light);
+  }
+
+  .option-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    margin-bottom: 0.4rem;
+    color: var(--ink);
+  }
+
+  .option-star {
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+
+  .option-perks {
+    font-size: 0.8rem;
+    color: #666;
+  }
+
+  .option-perks li { list-style: none; padding: 0.15rem 0; }
+  .option-perks li::before { content: '✔ '; color: var(--sage); }
+
+  /* ─── DIVIDER ─── */
+  .day-divider {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin: 4rem 0 0;
+    opacity: 0.3;
+  }
+
+  .day-divider::before, .day-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--gold);
+  }
+
+  .day-divider-icon { font-size: 1rem; color: var(--gold); }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--night);
+    color: rgba(255,255,255,0.4);
+    text-align: center;
+    padding: 4rem 2rem;
+    margin-top: 5rem;
+    font-size: 0.82rem;
+  }
+
+  footer .footer-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: var(--gold);
+    margin-bottom: 0.8rem;
+  }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.3; transform: scaleY(1); }
+    50%       { opacity: 0.8; transform: scaleY(1.1); }
+  }
+
+  /* ─── NAV DOTS ─── */
+  .nav-dots {
+    position: fixed;
+    right: 1.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    z-index: 100;
+  }
+
+  .nav-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: rgba(201,168,76,0.3);
+    border: 1px solid rgba(201,168,76,0.5);
+    cursor: pointer;
+    transition: background 0.3s, transform 0.3s;
+  }
+
+  .nav-dot.active {
+    background: var(--gold);
+    transform: scale(1.4);
+  }
+
+  @media (max-width: 600px) {
+    .nav-dots { display: none; }
+    .day-number { font-size: 3.5rem; }
+    .timeline { padding-left: 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV DOTS -->
+<nav class="nav-dots" id="navDots">
+  <div class="nav-dot active" data-target="day5" title="May 5"></div>
+  <div class="nav-dot" data-target="day6" title="May 6"></div>
+  <div class="nav-dot" data-target="day7" title="May 7"></div>
+  <div class="nav-dot" data-target="day8" title="May 8"></div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <svg class="skyline" viewBox="0 0 1440 220" fill="white" xmlns="http://www.w3.org/2000/svg">
+    <!-- Simplified SG skyline silhouette -->
+    <rect x="60" y="120" width="18" height="100"/>
+    <rect x="55" y="110" width="28" height="12"/>
+    <rect x="100" y="90" width="22" height="130"/>
+    <rect x="95" y="80" width="32" height="12"/>
+    <rect x="140" y="130" width="16" height="90"/>
+    <rect x="170" y="100" width="20" height="120"/>
+    <rect x="210" y="70" width="30" height="150"/>
+    <rect x="205" y="60" width="40" height="12"/>
+    <rect x="260" y="110" width="18" height="110"/>
+    <rect x="290" y="60" width="14" height="160"/>
+    <circle cx="297" cy="55" r="8"/>
+    <!-- Marina Bay Sands inspired -->
+    <rect x="640" y="100" width="25" height="120"/>
+    <rect x="680" y="100" width="25" height="120"/>
+    <rect x="720" y="100" width="25" height="120"/>
+    <rect x="630" y="85" width="130" height="18" rx="4"/>
+    <!-- Supertrees -->
+    <line x1="850" y1="220" x2="850" y2="100" stroke="white" stroke-width="5"/>
+    <circle cx="850" cy="92" r="28" fill="white"/>
+    <line x1="910" y1="220" x2="910" y2="120" stroke="white" stroke-width="4"/>
+    <circle cx="910" cy="113" r="22" fill="white"/>
+    <line x1="960" y1="220" x2="960" y2="110" stroke="white" stroke-width="4"/>
+    <circle cx="960" cy="103" r="24" fill="white"/>
+    <rect x="1100" y="140" width="20" height="80"/>
+    <rect x="1130" y="110" width="24" height="110"/>
+    <rect x="1165" y="130" width="18" height="90"/>
+    <rect x="1200" y="90" width="26" height="130"/>
+    <rect x="1240" y="120" width="20" height="100"/>
+    <rect x="1270" y="100" width="22" height="120"/>
+    <rect x="1310" y="130" width="16" height="90"/>
+    <rect x="1350" y="110" width="20" height="110"/>
+    <rect x="1390" y="140" width="16" height="80"/>
+    <!-- Ground -->
+    <rect x="0" y="215" width="1440" height="5"/>
+  </svg>
+
+  <div class="hero-badge">Singapore · Family Trip</div>
+  <h1>Our <em>Singapore</em><br>Adventure</h1>
+  <p class="hero-sub">A memory in four chapters</p>
+
+  <div class="hero-dates">
+    <div class="hero-date-pill"><span>May 5</span> · Gardens & Bay</div>
+    <div class="hero-date-pill"><span>May 6</span> · Johor Bahru</div>
+    <div class="hero-date-pill"><span>May 7</span> · Graduation 🎓</div>
+    <div class="hero-date-pill"><span>May 8</span> · Sentosa & Chinatown</div>
+  </div>
+
+  <div class="scroll-hint">
+    <div class="scroll-line"></div>
+    scroll
+  </div>
+</section>
+
+<!-- ════════════════ DAY 5 ════════════════ -->
+<section class="day-section" id="day5">
+  <div class="container">
+    <div class="day-header">
+      <div class="day-number">05</div>
+      <div class="day-info">
+        <div class="day-label">Day One · Monday</div>
+        <div class="day-title">Gardens, <em>Marina Bay</em> & Supertrees</div>
+        <div class="day-date">May 5, 2025 · Start 10:30 AM</div>
+      </div>
+    </div>
+
+    <div class="timeline">
+
+      <div class="block">
+        <div class="block-dot filled"></div>
+        <div class="block-card">
+          <div class="block-meta">
+            <span class="block-icon">🌿</span>
+            <span class="block-time">10:30 – 1:30 PM</span>
+            <span class="block-tag tag-nature">Nature</span>
+          </div>
+          <div class="block-title">Gardens by the Bay</div>
+          <div class="block-body">
+            A cool, lush morning inside two of Singapore's most spectacular domes.
+            <ul>
+              <li>Cloud Forest — misty mountain waterfall, rare orchids</li>
+              <li>Flower Dome — world's largest glass greenhouse</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="block-dot"></div>
+        <div class="block-card">
+          <div class="block-meta">
+            <span class="block-icon">🍜</span>
+            <span class="block-time">1:30 – 2:30 PM</span>
+            <span class="block-tag tag-food">Lunch</span>
+          </div>
+          <div class="block-title">Marina Bay Sands Food Court</div>
+          <div class="block-body">Cool air-conditioned rest stop — recharge before the afternoon walk. Plenty of local and international options.</div>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="block-dot"></div>
+        <div class="block-card">
+          <div class="block-meta">
+            <span class="block-icon">🏙</span>
+            <span class="block-time">2:30 – 6:00 PM</span>
+            <span class="block-tag tag-explore">Explore</span>
+          </div>
+          <div class="block-title">Marina Bay Sands & Merlion Park</div>
+          <div class="block-body">
+            <ul>
+              <li>Browse The Shoppes at Marina Bay Sands</li>
+              <li>Stroll along the waterfront promenade</li>
+              <li>Merlion Park — iconic photo stop & rest breaks</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="block-dot filled"></div>
+        <div class="block-card">
+          <div class="block-meta">
+            <span class="block-icon">✨</span>
+            <span class="block-time">7:45 / 8:45 PM</span>
+            <span class="block-tag tag-night">Light Show</span>
+          </div>
+          <div class="block-title">Supertree Grove · Garden Rhapsody</div>
+          <div class="block-body">Return to Gardens by the Bay for the nightly light and music spectacular. Two show slots — pick whichever timing works best.</div>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="block-dot"></div>
+        <div class="block-card">
+          <div class="block-meta">
+            <span class="block-icon">🌙</span>
+            <span class="block-time">After 8 PM</span>
+            <span class="block-tag tag-food">Dinner</span>
+          </div>
+          <div class="block-title">Lau Pa Sat</div>
+          <div class="block-body">Singapore's most beloved Victorian cast-iron hawker centre. Satay, char kway teow, BBQ seafood — the perfect end to a big day.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="day-divider container"><div class="day-divider-icon">✦</div></div>
+
+<!-- ════════════════ DAY 6 ════════════════ -->
+<section class="day-section" id="day6">
+  <div class="container">
+    <div class="day-header">
+      <div class="day-number">06</div>
+      <div class="day-info">
+        <div class="day-label">Day Two · Tuesday</div>
+        <div class="day-title">Johor <em>Bahru</em></div>
+        <div class="day-date">May 6, 2025</div>
+      </div>
+    </div>
+
+    <div class="timeline">
+      <div class="block">
+        <div class="block-dot filled"></div>
+        <div class="block-card">
+          <div class="block-meta">
+            <span class="block-icon">🇲🇾</span>
+            <span class="block-tag tag-explore">Day Trip</span>
+          </div>
+          <div class="block-title">Cross the Causeway</div>
+          <div class="block-body">A day across the border in Johor Bahru — shopping, street food, and a change of pace. Enjoy Malaysia at your own rhythm.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="day-divider container"><div class="day-divider-icon">✦</div></div>
+
+<!-- ════════════════ DAY 7 ════════════════ -->
+<section class="day-section" id="day7">
+  <div class="container">
+    <div class="day-header">
+      <div class="day-number">07</div>
+      <div class="day-info">
+        <div class="day-label">Day Three · Wednesday</div>
+        <div class="day-title">The Big <em>Graduation</em> 🎓</div>
+        <div class="day-date">May 7, 2025</div>
+      </div>
+    </div>
+
+    <div class="timeline">
+
+      <div class="block">
+        <div class="block-dot filled"></div>
+        <div class="block-card">
+          <div class="block-meta">
+            <span class="block-icon">🎓</span>
+            <span class="block-time">1:30 PM</span>
+            <span class="block-tag tag-grad">Graduation</span>
+          </div>
+          <div class="block-title">Graduation Ceremony</div>
+          <div class="block-body">Singapore Polytechnic. Caps, gowns, and proud smiles — the moment we've all been waiting for. 🥹</div>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="block-dot"></div>
+        <div class="block-card">
+          <div class="block-meta">
+            <span class="block-icon">☕</span>
+            <span class="block-time">4:00 – 6:00 PM</span>
+            <span class="block-tag tag-tip">Rest</span>
+          </div>
+          <div class="block-title">Light Rest · Café Break</div>
+          <div class="block-body">Head back to my place, freshen up, and recharge. This buffer is important — you'll want to feel your best for the celebration dinner.</div>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="block-dot filled"></div>
+        <div class="block-card">
+          <div class="block-meta">
+            <span class="block-icon">🥂</span>
+            <span class="block-time">7:00 – 7:30 PM</span>
+            <span class="block-tag tag-event">Dinner — Book Ahead!</span>
+          </div>
+          <div class="block-title">Celebration Dinner</div>
+          <div class="block-body">Three great options — choose your vibe:</div>
+          <div class="options-grid" style="margin-top:1rem;">
+            <div class="option-card featured">
+              <div class="option-star">⭐ Best Experience</div>
+              <div class="option-name">CÉ LA VI Restaurant</div>
+              <ul class="option-perks">
+                <li>Marina Bay skyline view</li>
+                <li>Perfect graduation photos</li>
+                <li>Sunset timing at 7 PM</li>
+                <li>Premium rooftop vibe</li>
+              </ul>
+            </div>
+            <div class="option-card">
+              <div class="option-name">Wolfgang's Steakhouse</div>
+              <ul class="option-perks">
+                <li>Classic fine dining</li>
+                <li>Family-friendly</li>
+                <li>Premium dry-aged beef</li>
+              </ul>
+            </div>
+            <div class="option-card">
+              <div class="option-name">Burnt Ends</div>
+              <ul class="option-perks">
+                <li>Modern Australian BBQ</li>
+                <li>Very popular — book early!</li>
+                <li>Casual yet special</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="day-divider container"><div class="day-divider-icon">✦</div></div>
+
+<!-- ════════════════ DAY 8 ════════════════ -->
+<section class="day-section" id="day8">
+  <div class="container">
+    <div class="day-header">
+      <div class="day-number">08</div>
+      <div class="day-info">
+        <div class="day-label">Day Four · Thursday · Final Day</div>
+        <div class="day-title">Sentosa & <em>Chinatown</em></div>
+        <div class="day-date">May 8, 2025</div>
+      </div>
+    </div>
+
+    <div class="timeline">
+
+      <div class="block">
+        <div class="block-dot filled"></div>
+        <div class="block-card">
+          <div class="block-meta">
+            <span class="block-icon">🌊</span>
+            <span class="block-time">10:00 AM – 1:00 PM</span>
+            <span class="block-tag tag-explore">Sentosa</span>
+          </div>
+          <div class="block-title">S.E.A. Aquarium (Oceanarium)</div>
+          <div class="block-body">One of the world's largest aquariums — over 100,000 marine animals. Allow 2–3 hours for a relaxed, family-paced visit. Perfect finale morning.</div>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="block-dot"></div>
+        <div class="block-card">
+          <div class="block-meta">
+            <span class="block-icon">🍚</span>
+            <span class="block-time">2:00 – 3:30 PM</span>
+            <span class="block-tag tag-food">Lunch</span>
+          </div>
+          <div class="block-title">Chinatown Hawker Centres</div>
+          <div class="block-body">
+            Head to Chinatown for your last great Singapore meal:
+            <ul>
+              <li>Chinatown Complex Hawker Centre — huge variety, local favourite</li>
+              <li>Maxwell Food Centre — very popular, famous stalls</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="block-dot"></div>
+        <div class="block-card">
+          <div class="block-meta">
+            <span class="block-icon">🏠</span>
+            <span class="block-time">After 4:00 PM</span>
+            <span class="block-tag tag-tip">Pack & Rest</span>
+          </div>
+          <div class="block-title">Head Back · Pack Up</div>
+          <div class="block-body">Return to the hotel, pack your bags, and soak in the last moments of a beautiful trip. Safe travels! ✈️</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-title">Singapore · May 2025</div>
+  <p>A trip to remember, together. 💛</p>
+  <p style="margin-top:0.5rem; font-size:0.75rem; opacity:0.5;">Gardens by the Bay · Marina Bay · Sentosa · Johor Bahru · Singapore Polytechnic</p>
+</footer>
+
+<script>
+  // Intersection Observer for scroll animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.day-header, .block').forEach((el, i) => {
+    el.style.transitionDelay = (i % 6) * 0.08 + 's';
+    observer.observe(el);
+  });
+
+  // Nav dots
+  const sections = ['day5','day6','day7','day8'];
+  const dots = document.querySelectorAll('.nav-dot');
+
+  dots.forEach(dot => {
+    dot.addEventListener('click', () => {
+      document.getElementById(dot.dataset.target).scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+
+  const sectionObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const idx = sections.indexOf(entry.target.id);
+        dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+      }
+    });
+  }, { threshold: 0.4 });
+
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) sectionObserver.observe(el);
+  });
+</script>
+</body>
+</html>
