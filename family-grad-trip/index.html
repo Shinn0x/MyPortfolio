@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Singapore Trip · May 2025</title>
+<title>Singapore Trip · May 2025 · Shinn's Graduation 🎓</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -26,11 +26,58 @@
     color: var(--ink);
     font-family: 'DM Sans', sans-serif;
     font-weight: 300;
-    line-height: 1.7;
+    line-height: 1.8;
     overflow-x: hidden;
   }
 
-  /* ─── HERO ─── */
+  /* ── LANGUAGE TOGGLE ── */
+  .lang-toggle {
+    position: fixed;
+    top: 1.2rem;
+    right: 1.5rem;
+    z-index: 300;
+    display: flex;
+    background: rgba(13,17,23,0.85);
+    border: 1px solid rgba(201,168,76,0.35);
+    border-radius: 999px;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  }
+
+  .lang-toggle button {
+    background: none;
+    border: none;
+    padding: 0.45rem 1rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: rgba(255,255,255,0.45);
+    cursor: pointer;
+    letter-spacing: 0.04em;
+    transition: all 0.25s;
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+
+  .lang-toggle button.active {
+    background: var(--gold);
+    color: var(--night);
+    font-weight: 700;
+    border-radius: 999px;
+  }
+
+  /* Show/hide language content */
+  .mm { display: none; }
+  body.lang-mm .en { display: none; }
+  body.lang-mm .mm { display: block; }
+  /* for inline spans */
+  span.mm { display: none; }
+  body.lang-mm span.en { display: none; }
+  body.lang-mm span.mm { display: inline; }
+
+  /* ── HERO ── */
   .hero {
     position: relative;
     min-height: 100vh;
@@ -41,7 +88,7 @@
     text-align: center;
     background: var(--night);
     overflow: hidden;
-    padding: 3rem 2rem;
+    padding: 3rem 2rem 5rem;
   }
 
   .hero-bg {
@@ -59,7 +106,35 @@
     opacity: 0.12;
   }
 
+  /* Special family banner inside hero */
+  .family-banner {
+    position: relative;
+    z-index: 2;
+    background: rgba(201,168,76,0.1);
+    border: 1px solid rgba(201,168,76,0.3);
+    border-radius: 14px;
+    padding: 1rem 1.8rem;
+    margin-bottom: 2.5rem;
+    max-width: 560px;
+    text-align: center;
+  }
+
+  .family-banner-icon { font-size: 1.8rem; margin-bottom: 0.4rem; }
+
+  .family-banner p {
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.75);
+    line-height: 1.65;
+  }
+
+  .family-banner p strong {
+    color: var(--gold);
+    font-weight: 600;
+  }
+
   .hero-badge {
+    position: relative;
+    z-index: 2;
     display: inline-block;
     border: 1px solid var(--gold);
     color: var(--gold);
@@ -68,35 +143,40 @@
     text-transform: uppercase;
     padding: 0.4rem 1.2rem;
     border-radius: 999px;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
     animation: fadeUp 0.8s ease both;
   }
 
   .hero h1 {
+    position: relative;
+    z-index: 2;
     font-family: 'Playfair Display', serif;
-    font-size: clamp(2.8rem, 8vw, 6rem);
+    font-size: clamp(2.5rem, 7vw, 5.5rem);
     color: #fff;
-    line-height: 1.05;
+    line-height: 1.08;
     animation: fadeUp 0.9s 0.1s ease both;
+    margin-bottom: 0.5rem;
   }
 
-  .hero h1 em {
-    font-style: italic;
-    color: var(--gold);
-  }
+  .hero h1 em { font-style: italic; color: var(--gold); }
 
   .hero-sub {
-    margin-top: 1.5rem;
-    color: rgba(255,255,255,0.5);
+    position: relative;
+    z-index: 2;
+    margin-top: 0.75rem;
+    color: rgba(255,255,255,0.55);
     font-size: 1rem;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.04em;
     animation: fadeUp 1s 0.2s ease both;
+    max-width: 500px;
   }
 
   .hero-dates {
+    position: relative;
+    z-index: 2;
     display: flex;
-    gap: 1.5rem;
-    margin-top: 3rem;
+    gap: 1rem;
+    margin-top: 2.5rem;
     flex-wrap: wrap;
     justify-content: center;
     animation: fadeUp 1s 0.35s ease both;
@@ -106,24 +186,26 @@
     background: rgba(255,255,255,0.06);
     border: 1px solid rgba(255,255,255,0.12);
     backdrop-filter: blur(10px);
-    padding: 0.6rem 1.4rem;
+    padding: 0.55rem 1.2rem;
     border-radius: 999px;
     color: rgba(255,255,255,0.75);
-    font-size: 0.85rem;
+    font-size: 0.82rem;
     letter-spacing: 0.03em;
   }
 
   .hero-date-pill span { color: var(--gold); font-weight: 500; }
+  .hero-date-pill.is-grad { border-color: rgba(201,168,76,0.5); background: rgba(201,168,76,0.1); }
 
   .scroll-hint {
     position: absolute;
-    bottom: 2.5rem;
+    bottom: 2rem;
+    z-index: 2;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 0.5rem;
     color: rgba(255,255,255,0.3);
-    font-size: 0.7rem;
+    font-size: 0.65rem;
     letter-spacing: 0.15em;
     text-transform: uppercase;
     animation: fadeUp 1s 0.6s ease both;
@@ -135,17 +217,15 @@
     animation: scrollPulse 2s ease-in-out infinite;
   }
 
-  /* ─── LAYOUT ─── */
+  /* ── LAYOUT ── */
   .container {
     max-width: 860px;
     margin: 0 auto;
     padding: 0 1.5rem;
   }
 
-  /* ─── DAY SECTIONS ─── */
-  .day-section {
-    padding: 5rem 0 2rem;
-  }
+  /* ── DAY SECTIONS ── */
+  .day-section { padding: 5rem 0 2rem; }
 
   .day-header {
     display: flex;
@@ -169,7 +249,7 @@
     user-select: none;
   }
 
-  .day-info { padding-top: 0.5rem; }
+  .day-info { padding-top: 0.4rem; }
 
   .day-label {
     font-size: 0.65rem;
@@ -188,13 +268,43 @@
 
   .day-title em { font-style: italic; color: var(--coral); }
 
+  .day-title-mm {
+    font-size: 1.35rem;
+    color: var(--ink);
+    line-height: 1.35;
+    margin-top: 0.2rem;
+    font-weight: 400;
+    display: none;
+  }
+
+  body.lang-mm .day-title-mm { display: block; }
+  body.lang-mm .day-title { display: none; }
+
   .day-date {
     margin-top: 0.4rem;
     font-size: 0.85rem;
     color: #888;
   }
 
-  /* ─── TIMELINE ─── */
+  /* Burmese parent note */
+  .parent-note {
+    background: linear-gradient(135deg, #fffbf0, #fff8e8);
+    border: 1px solid var(--gold-light);
+    border-left: 3px solid var(--gold);
+    border-radius: 10px;
+    padding: 1rem 1.4rem;
+    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+    color: #5a4a20;
+    line-height: 1.7;
+    display: none;
+  }
+
+  body.lang-mm .parent-note { display: block; }
+
+  .parent-note-icon { font-size: 1.1rem; margin-right: 0.4rem; }
+
+  /* ── TIMELINE ── */
   .timeline {
     position: relative;
     padding-left: 2.5rem;
@@ -203,9 +313,7 @@
   .timeline::before {
     content: '';
     position: absolute;
-    left: 0.55rem;
-    top: 0.5rem;
-    bottom: 0.5rem;
+    left: 0.55rem; top: 0.5rem; bottom: 0.5rem;
     width: 1px;
     background: linear-gradient(to bottom, var(--gold) 0%, var(--mist) 60%, transparent 100%);
   }
@@ -222,8 +330,7 @@
 
   .block-dot {
     position: absolute;
-    left: -2.15rem;
-    top: 0.85rem;
+    left: -2.15rem; top: 0.9rem;
     width: 10px; height: 10px;
     border-radius: 50%;
     border: 2px solid var(--gold);
@@ -244,6 +351,13 @@
   .block-card:hover {
     box-shadow: 0 8px 40px rgba(0,0,0,0.1);
     transform: translateY(-2px);
+  }
+
+  /* Graduation card special highlight */
+  .block-card.grad-highlight {
+    border: 2px solid var(--gold);
+    background: linear-gradient(135deg, #fffdf5, #fff9ec);
+    box-shadow: 0 4px 30px rgba(201,168,76,0.15);
   }
 
   .block-meta {
@@ -273,26 +387,44 @@
     font-weight: 500;
   }
 
-  .tag-nature { background: #e8f3e9; color: var(--sage); }
-  .tag-food   { background: #fef3ee; color: var(--coral); }
-  .tag-explore{ background: #edf3f8; color: #5a85a8; }
-  .tag-event  { background: #fdf8ee; color: var(--gold); border: 1px solid var(--gold-light); }
-  .tag-night  { background: #f0edf8; color: #7a6a9e; }
-  .tag-grad   { background: #fff0f0; color: #c06060; }
-  .tag-tip    { background: #f0f8f0; color: #5a8a5a; }
+  .tag-nature  { background: #e8f3e9; color: var(--sage); }
+  .tag-food    { background: #fef3ee; color: var(--coral); }
+  .tag-explore { background: #edf3f8; color: #5a85a8; }
+  .tag-event   { background: #fdf8ee; color: var(--gold); border: 1px solid var(--gold-light); }
+  .tag-night   { background: #f0edf8; color: #7a6a9e; }
+  .tag-grad    { background: #fff0e0; color: #b06000; border: 1px solid rgba(201,168,76,0.4); }
+  .tag-tip     { background: #f0f8f0; color: #5a8a5a; }
+  .tag-family  { background: #fce8f0; color: #a04060; }
 
   .block-title {
     font-family: 'Playfair Display', serif;
     font-size: 1.15rem;
     color: var(--ink);
-    margin-bottom: 0.4rem;
+    margin-bottom: 0.35rem;
   }
+
+  /* Burmese translation inside block */
+  .block-title-mm {
+    font-size: 1rem;
+    color: var(--ink);
+    margin-bottom: 0.35rem;
+    font-weight: 500;
+    display: none;
+  }
+
+  body.lang-mm .block-title { display: none; }
+  body.lang-mm .block-title-mm { display: block; }
 
   .block-body {
     font-size: 0.88rem;
     color: #555;
-    line-height: 1.65;
+    line-height: 1.7;
   }
+
+  .block-body .en-text { display: block; }
+  .block-body .mm-text { display: none; font-size: 0.9rem; color: #444; line-height: 1.75; }
+  body.lang-mm .block-body .en-text { display: none; }
+  body.lang-mm .block-body .mm-text { display: block; }
 
   .block-body ul {
     list-style: none;
@@ -301,8 +433,7 @@
   }
 
   .block-body ul li {
-    padding: 0.2rem 0;
-    padding-left: 1.1rem;
+    padding: 0.2rem 0 0.2rem 1.1rem;
     position: relative;
   }
 
@@ -317,7 +448,7 @@
   /* OPTIONS cards */
   .options-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
     gap: 1rem;
     margin-top: 1rem;
   }
@@ -326,7 +457,7 @@
     background: #fafafa;
     border: 1px solid #eee;
     border-radius: 12px;
-    padding: 1.1rem 1.3rem;
+    padding: 1.1rem 1.2rem;
   }
 
   .option-card.featured {
@@ -336,13 +467,13 @@
 
   .option-name {
     font-family: 'Playfair Display', serif;
-    font-size: 1rem;
+    font-size: 0.98rem;
     margin-bottom: 0.4rem;
     color: var(--ink);
   }
 
   .option-star {
-    font-size: 0.65rem;
+    font-size: 0.62rem;
     letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--gold);
@@ -350,15 +481,11 @@
     margin-bottom: 0.5rem;
   }
 
-  .option-perks {
-    font-size: 0.8rem;
-    color: #666;
-  }
-
-  .option-perks li { list-style: none; padding: 0.15rem 0; }
+  .option-perks { font-size: 0.8rem; color: #666; }
+  .option-perks li { list-style: none; padding: 0.12rem 0; }
   .option-perks li::before { content: '✔ '; color: var(--sage); }
 
-  /* ─── DIVIDER ─── */
+  /* ── DIVIDER ── */
   .day-divider {
     display: flex;
     align-items: center;
@@ -376,24 +503,34 @@
 
   .day-divider-icon { font-size: 1rem; color: var(--gold); }
 
-  /* ─── FOOTER ─── */
+  /* ── FOOTER ── */
   footer {
     background: var(--night);
     color: rgba(255,255,255,0.4);
     text-align: center;
     padding: 4rem 2rem;
     margin-top: 5rem;
-    font-size: 0.82rem;
+    font-size: 0.85rem;
+    line-height: 2;
   }
 
   footer .footer-title {
     font-family: 'Playfair Display', serif;
     font-size: 1.5rem;
     color: var(--gold);
-    margin-bottom: 0.8rem;
+    margin-bottom: 0.6rem;
   }
 
-  /* ─── ANIMATIONS ─── */
+  footer .footer-mm {
+    margin-top: 1rem;
+    font-size: 0.95rem;
+    color: rgba(255,255,255,0.55);
+    display: none;
+  }
+
+  body.lang-mm footer .footer-mm { display: block; }
+
+  /* ── ANIMATIONS ── */
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(20px); }
     to   { opacity: 1; transform: translateY(0); }
@@ -404,7 +541,7 @@
     50%       { opacity: 0.8; transform: scaleY(1.1); }
   }
 
-  /* ─── NAV DOTS ─── */
+  /* ── NAV DOTS ── */
   .nav-dots {
     position: fixed;
     right: 1.5rem;
@@ -430,28 +567,38 @@
     transform: scale(1.4);
   }
 
+  /* ── RESPONSIVE ── */
   @media (max-width: 600px) {
     .nav-dots { display: none; }
     .day-number { font-size: 3.5rem; }
     .timeline { padding-left: 2rem; }
+    .lang-toggle { top: 0.75rem; right: 0.75rem; }
+    .lang-toggle button { padding: 0.4rem 0.8rem; font-size: 0.7rem; }
+    .hero { padding: 3rem 1.25rem 5rem; }
+    .family-banner { padding: 0.9rem 1.2rem; }
   }
 </style>
 </head>
 <body>
 
-<!-- NAV DOTS -->
+<!-- ══ LANGUAGE TOGGLE ══ -->
+<div class="lang-toggle">
+  <button id="btn-en" class="active" onclick="setLang('en')">🇬🇧 English</button>
+  <button id="btn-mm" onclick="setLang('mm')">🇲🇲 မြန်မာ</button>
+</div>
+
+<!-- ══ NAV DOTS ══ -->
 <nav class="nav-dots" id="navDots">
   <div class="nav-dot active" data-target="day5" title="May 5"></div>
   <div class="nav-dot" data-target="day6" title="May 6"></div>
-  <div class="nav-dot" data-target="day7" title="May 7"></div>
+  <div class="nav-dot" data-target="day7" title="May 7 · Graduation"></div>
   <div class="nav-dot" data-target="day8" title="May 8"></div>
 </nav>
 
-<!-- HERO -->
+<!-- ══ HERO ══ -->
 <section class="hero">
   <div class="hero-bg"></div>
   <svg class="skyline" viewBox="0 0 1440 220" fill="white" xmlns="http://www.w3.org/2000/svg">
-    <!-- Simplified SG skyline silhouette -->
     <rect x="60" y="120" width="18" height="100"/>
     <rect x="55" y="110" width="28" height="12"/>
     <rect x="100" y="90" width="22" height="130"/>
@@ -463,12 +610,10 @@
     <rect x="260" y="110" width="18" height="110"/>
     <rect x="290" y="60" width="14" height="160"/>
     <circle cx="297" cy="55" r="8"/>
-    <!-- Marina Bay Sands inspired -->
     <rect x="640" y="100" width="25" height="120"/>
     <rect x="680" y="100" width="25" height="120"/>
     <rect x="720" y="100" width="25" height="120"/>
     <rect x="630" y="85" width="130" height="18" rx="4"/>
-    <!-- Supertrees -->
     <line x1="850" y1="220" x2="850" y2="100" stroke="white" stroke-width="5"/>
     <circle cx="850" cy="92" r="28" fill="white"/>
     <line x1="910" y1="220" x2="910" y2="120" stroke="white" stroke-width="4"/>
@@ -484,37 +629,90 @@
     <rect x="1310" y="130" width="16" height="90"/>
     <rect x="1350" y="110" width="20" height="110"/>
     <rect x="1390" y="140" width="16" height="80"/>
-    <!-- Ground -->
     <rect x="0" y="215" width="1440" height="5"/>
   </svg>
 
-  <div class="hero-badge">Singapore · Family Trip</div>
-  <h1>Our <em>Singapore</em><br>Adventure</h1>
-  <p class="hero-sub">A memory in four chapters</p>
+  <!-- Family welcome banner -->
+  <div class="family-banner">
+    <div class="family-banner-icon">👨‍👩‍👦💛</div>
+    <p class="en">
+      This is our <strong>Singapore family trip</strong> — planned for all of us to enjoy together.<br>
+      On May 7, we'll celebrate <strong>Shinn's graduation</strong> from Singapore Polytechnic. 🎓
+    </p>
+    <p class="mm">
+      ဒါကတော့ ကျွန်တော်တို့ရဲ့ <strong>စင်္ကာပူ မိသားစု ခရီးစဉ်</strong> ပါ — အားလုံး အတူတကွ ပျော်ရွှင်စွာ ဖြတ်သန်းနိုင်ရန် စီစဉ်ထားပါသည်။<br>
+      မေ ၇ ရက်နေ့တွင် <strong>Shinn ၏ ဘွဲ့နှင်းသဘင်</strong>ကို Singapore Polytechnic တွင် ကျင်းပမည်ဖြစ်ပါသည်။ 🎓<br>
+      <strong>မိဘများကို ဖိတ်ကြားခြင်းဖြင့် ဝမ်းသာမိပါသည်။ 💛</strong>
+    </p>
+  </div>
+
+  <div class="hero-badge">
+    <span class="en">Singapore · Family Reunion & Graduation Trip</span>
+    <span class="mm">စင်္ကာပူ · မိသားစု ပြန်လည်ဆုံတွေ့ & ဘွဲ့ ခရီးစဉ်</span>
+  </div>
+
+  <h1>
+    <span class="en">Our <em>Singapore</em><br>Adventure</span>
+    <span class="mm">ကျွန်တော်တို့ရဲ့<br><em>စင်္ကာပူ</em> ခရီး</span>
+  </h1>
+
+  <p class="hero-sub">
+    <span class="en">A memory in four chapters — May 5 to 8, 2025</span>
+    <span class="mm">မေ ၅ မှ ၈ ရက်၊ ၂၀၂၅ — လေးနေ့ တစ်သက်တာ မှတ်ဉာဏ်</span>
+  </p>
 
   <div class="hero-dates">
-    <div class="hero-date-pill"><span>May 5</span> · Gardens & Bay</div>
-    <div class="hero-date-pill"><span>May 6</span> · Johor Bahru</div>
-    <div class="hero-date-pill"><span>May 7</span> · Graduation 🎓</div>
-    <div class="hero-date-pill"><span>May 8</span> · Sentosa & Chinatown</div>
+    <div class="hero-date-pill">
+      <span>May 5</span>
+      <span class="en"> · Gardens & Bay</span>
+      <span class="mm"> · ဥယျာဉ် & အော်လေး</span>
+    </div>
+    <div class="hero-date-pill">
+      <span>May 6</span>
+      <span class="en"> · Johor Bahru</span>
+      <span class="mm"> · ဂျိုဟော်ဘာရူး</span>
+    </div>
+    <div class="hero-date-pill is-grad">
+      <span>May 7</span>
+      <span class="en"> · Graduation 🎓</span>
+      <span class="mm"> · ဘွဲ့နှင်းသဘင် 🎓</span>
+    </div>
+    <div class="hero-date-pill">
+      <span>May 8</span>
+      <span class="en"> · Sentosa & Chinatown</span>
+      <span class="mm"> · ဆင်တိုဆာ & တရုတ်ရပ်ကွက်</span>
+    </div>
   </div>
 
   <div class="scroll-hint">
     <div class="scroll-line"></div>
-    scroll
+    <span class="en">scroll</span>
+    <span class="mm">ဆင်းကြည့်ပါ</span>
   </div>
 </section>
 
-<!-- ════════════════ DAY 5 ════════════════ -->
+<!-- ════════════ DAY 5 ════════════ -->
 <section class="day-section" id="day5">
   <div class="container">
     <div class="day-header">
       <div class="day-number">05</div>
       <div class="day-info">
-        <div class="day-label">Day One · Monday</div>
+        <div class="day-label">
+          <span class="en">Day One · Monday</span>
+          <span class="mm">ပထမနေ့ · တနင်္လာနေ့</span>
+        </div>
         <div class="day-title">Gardens, <em>Marina Bay</em> & Supertrees</div>
-        <div class="day-date">May 5, 2025 · Start 10:30 AM</div>
+        <div class="day-title-mm">ဥယျာဉ်တော်၊ <em>မာရီနာဘေး</em> နှင့် Supertrees</div>
+        <div class="day-date">
+          <span class="en">May 5, 2025 · Start 10:30 AM</span>
+          <span class="mm">မေ ၅၊ ၂၀၂၅ · မနက် ၁၀:၃၀ မှ စတင်သည်</span>
+        </div>
       </div>
+    </div>
+
+    <div class="parent-note">
+      <span class="parent-note-icon">💬</span>
+      <strong>မိဘများသိစေချင်သည် —</strong> ဒီနေ့က ကျွန်တော်တို့ မိသားစု စင်္ကာပူ ရောက်ပြီး ပထမဆုံးနေ့ ဖြစ်ပါသည်။ ဥယျာဉ်တော်ကြီးများ၊ ပန်းများ၊ မြင်ကွင်းများ ကြည့်ရှုပြီး ညပိုင်းတွင် မှော်ကဲ့သို့ မီးရောင်ပွဲတော် ကြည့်ရှုမည် ဖြစ်ပါသည်။ ရာသီဥတုကောင်းသော air-con ခန်းမများ အများအပြားပါ — ပင်ပန်းနွမ်းနယ်ဖွယ် မဟုတ်ပါဘူး။ 🌿
     </div>
 
     <div class="timeline">
@@ -525,15 +723,27 @@
           <div class="block-meta">
             <span class="block-icon">🌿</span>
             <span class="block-time">10:30 – 1:30 PM</span>
-            <span class="block-tag tag-nature">Nature</span>
+            <span class="block-tag tag-nature">
+              <span class="en">Nature</span><span class="mm">သဘာဝ</span>
+            </span>
           </div>
           <div class="block-title">Gardens by the Bay</div>
+          <div class="block-title-mm">Gardens by the Bay (ဂမ်ဒင်းဘိုင်ဒဲဘေး)</div>
           <div class="block-body">
-            A cool, lush morning inside two of Singapore's most spectacular domes.
-            <ul>
-              <li>Cloud Forest — misty mountain waterfall, rare orchids</li>
-              <li>Flower Dome — world's largest glass greenhouse</li>
-            </ul>
+            <span class="en-text">
+              A cool, lush morning inside two of Singapore's most spectacular domes.
+              <ul>
+                <li>Cloud Forest — misty mountain waterfall, rare orchids</li>
+                <li>Flower Dome — world's largest glass greenhouse</li>
+              </ul>
+            </span>
+            <span class="mm-text">
+              စင်္ကာပူ ၏ အလှဆုံး ဥယျာဉ်ကြီး နှစ်ခုကို လှည့်လည်ကြည့်ရှုမည်ဖြစ်ပါသည်။ air-con ပါဝင်သောကြောင့် ပူပြင်းမှုကို ခံစားရမည် မဟုတ်ပါ။
+              <ul>
+                <li>Cloud Forest — တောင်ကြားဝှမ်း ရေတံခွန်နှင့် ချစ်စရာကောင်းသော ဆွမ်ပန်းများ</li>
+                <li>Flower Dome — ကမ္ဘာ့ အကြီးဆုံး မှန်ချပ်ဥယျာဉ်</li>
+              </ul>
+            </span>
           </div>
         </div>
       </div>
@@ -544,10 +754,16 @@
           <div class="block-meta">
             <span class="block-icon">🍜</span>
             <span class="block-time">1:30 – 2:30 PM</span>
-            <span class="block-tag tag-food">Lunch</span>
+            <span class="block-tag tag-food">
+              <span class="en">Lunch</span><span class="mm">နေ့လည်စာ</span>
+            </span>
           </div>
           <div class="block-title">Marina Bay Sands Food Court</div>
-          <div class="block-body">Cool air-conditioned rest stop — recharge before the afternoon walk. Plenty of local and international options.</div>
+          <div class="block-title-mm">Marina Bay Sands စားသောက်ဆိုင်</div>
+          <div class="block-body">
+            <span class="en-text">Cool air-conditioned rest stop — recharge before the afternoon walk. Plenty of local and international options.</span>
+            <span class="mm-text">air-con ခန်းတွင် ချမ်းချမ်းသာသာ နေ့လည်စာ စားမည်ဖြစ်ပါသည်။ ဒေသထွက် နှင့် နိုင်ငံတကာ ဟင်းလျာ အမျိုးမျိုး ရှိပါသည်။ နားနေပြီး အင်အားဖြည့်မည်။</span>
+          </div>
         </div>
       </div>
 
@@ -557,15 +773,27 @@
           <div class="block-meta">
             <span class="block-icon">🏙</span>
             <span class="block-time">2:30 – 6:00 PM</span>
-            <span class="block-tag tag-explore">Explore</span>
+            <span class="block-tag tag-explore">
+              <span class="en">Explore</span><span class="mm">လှည့်လည်မည်</span>
+            </span>
           </div>
           <div class="block-title">Marina Bay Sands & Merlion Park</div>
+          <div class="block-title-mm">Marina Bay Sands နှင့် Merlion Park</div>
           <div class="block-body">
-            <ul>
-              <li>Browse The Shoppes at Marina Bay Sands</li>
-              <li>Stroll along the waterfront promenade</li>
-              <li>Merlion Park — iconic photo stop & rest breaks</li>
-            </ul>
+            <span class="en-text">
+              <ul>
+                <li>Browse The Shoppes at Marina Bay Sands</li>
+                <li>Stroll along the waterfront promenade</li>
+                <li>Merlion Park — iconic photo stop & rest breaks</li>
+              </ul>
+            </span>
+            <span class="mm-text">
+              <ul>
+                <li>Marina Bay Sands ၏ ကြီးမားသော ဈေးဝယ်စင်တာ ကြည့်ရှုမည်</li>
+                <li>ရေကန်နားတလျှောက် လမ်းလျှောက်နားနေမည်</li>
+                <li>Merlion ရေပန်းကြီး — မဖြစ်မနေ ဓာတ်ပုံရိုက်ရမည့် နေရာ 📸</li>
+              </ul>
+            </span>
           </div>
         </div>
       </div>
@@ -576,10 +804,16 @@
           <div class="block-meta">
             <span class="block-icon">✨</span>
             <span class="block-time">7:45 / 8:45 PM</span>
-            <span class="block-tag tag-night">Light Show</span>
+            <span class="block-tag tag-night">
+              <span class="en">Light Show</span><span class="mm">မီးရောင်ပွဲ</span>
+            </span>
           </div>
           <div class="block-title">Supertree Grove · Garden Rhapsody</div>
-          <div class="block-body">Return to Gardens by the Bay for the nightly light and music spectacular. Two show slots — pick whichever timing works best.</div>
+          <div class="block-title-mm">Supertree Grove · မီးရောင်ဂီတပွဲ</div>
+          <div class="block-body">
+            <span class="en-text">Return to Gardens by the Bay for the nightly light and music spectacular. Two show slots — pick whichever timing works best.</span>
+            <span class="mm-text">ညပိုင်းတွင် Gardens by the Bay သို့ ပြန်လည်သွားရောက်ကာ သဘာဝ ဥယျာဉ်ကြီးများပေါ်တွင် ကျင်းပသော မီးရောင်နှင့် ဂီတ ပွဲတော်ကြီး ကြည့်ရှုမည်ဖြစ်ပါသည်။ ၇:၄၅ သို့မဟုတ် ၈:၄၅ — ကြိုက်သော အချိန်ကို ရွေးနိုင်သည်။ မှော်ဆန်လွန်းပါသည်! ✨</span>
+          </div>
         </div>
       </div>
 
@@ -588,11 +822,19 @@
         <div class="block-card">
           <div class="block-meta">
             <span class="block-icon">🌙</span>
-            <span class="block-time">After 8 PM</span>
-            <span class="block-tag tag-food">Dinner</span>
+            <span class="block-time">
+              <span class="en">After 8 PM</span><span class="mm">ည ၈ နာရီနောက်</span>
+            </span>
+            <span class="block-tag tag-food">
+              <span class="en">Dinner</span><span class="mm">ညစာ</span>
+            </span>
           </div>
           <div class="block-title">Lau Pa Sat</div>
-          <div class="block-body">Singapore's most beloved Victorian cast-iron hawker centre. Satay, char kway teow, BBQ seafood — the perfect end to a big day.</div>
+          <div class="block-title-mm">Lau Pa Sat (ထင်ရှားသော စားဖိုဆောင်)</div>
+          <div class="block-body">
+            <span class="en-text">Singapore's most beloved Victorian cast-iron hawker centre. Satay, char kway teow, BBQ seafood — the perfect end to a big day.</span>
+            <span class="mm-text">စင်္ကာပူ ၏ အကြိုက်ဆုံး ဟောက်ကာ စင်တာကြီး ဖြစ်သည်။ Satay (သူ့ကင်)၊ ညက်ကွေးတဲ (noodle)၊ ပင်လယ်စာ BBQ — ကြာနေပြီ ဒါပေမဲ့ ငြည်မနပ် ညစာ ဖြစ်မည်မှာ အသေအချာ! 😋</span>
+          </div>
         </div>
       </div>
 
@@ -602,16 +844,28 @@
 
 <div class="day-divider container"><div class="day-divider-icon">✦</div></div>
 
-<!-- ════════════════ DAY 6 ════════════════ -->
+<!-- ════════════ DAY 6 ════════════ -->
 <section class="day-section" id="day6">
   <div class="container">
     <div class="day-header">
       <div class="day-number">06</div>
       <div class="day-info">
-        <div class="day-label">Day Two · Tuesday</div>
+        <div class="day-label">
+          <span class="en">Day Two · Tuesday</span>
+          <span class="mm">ဒုတိယနေ့ · အင်္ဂါနေ့</span>
+        </div>
         <div class="day-title">Johor <em>Bahru</em></div>
-        <div class="day-date">May 6, 2025</div>
+        <div class="day-title-mm"><em>ဂျိုဟော်ဘာရူး</em> — မလေးရှားနိုင်ငံ</div>
+        <div class="day-date">
+          <span class="en">May 6, 2025</span>
+          <span class="mm">မေ ၆၊ ၂၀၂၅</span>
+        </div>
       </div>
+    </div>
+
+    <div class="parent-note">
+      <span class="parent-note-icon">💬</span>
+      <strong>မိဘများသိစေချင်သည် —</strong> ဒီနေ့က ဒုတိယနေ့ ဖြစ်ပြီး ကျွန်တော်တို့ မလေးရှားနိုင်ငံ ဂျိုဟော်ဘာရူး မြို့ကို တစ်နေ့ ကားဖြင့် သွားမည်ဖြစ်ပါသည်။ ကောင်းဘောင်တံတား ဖြတ်ကျော်ရမည် ဖြစ်ပါသည်။ ဝယ်ယူရာတွင် စင်္ကာပူထက် ပိုသက်သာပါသည်! 🇲🇾
     </div>
 
     <div class="timeline">
@@ -620,10 +874,16 @@
         <div class="block-card">
           <div class="block-meta">
             <span class="block-icon">🇲🇾</span>
-            <span class="block-tag tag-explore">Day Trip</span>
+            <span class="block-tag tag-explore">
+              <span class="en">Day Trip</span><span class="mm">တစ်နေ့ ခရီး</span>
+            </span>
           </div>
           <div class="block-title">Cross the Causeway</div>
-          <div class="block-body">A day across the border in Johor Bahru — shopping, street food, and a change of pace. Enjoy Malaysia at your own rhythm.</div>
+          <div class="block-title-mm">တံတားကြီး ဖြတ်ကျော်သည်</div>
+          <div class="block-body">
+            <span class="en-text">A day across the border in Johor Bahru — shopping, street food, and a change of pace. Enjoy Malaysia at your own rhythm.</span>
+            <span class="mm-text">မလေးရှားနိုင်ငံ ဆီ တစ်နေ့ ချင်းပတ်သည်။ ပိုမိုသက်သာသည့် ဈေးဆိုင်များ၊ street food များ၊ မြန်မာနှင့် နီးစပ်သော ပတ်ဝန်းကျင် ဖြစ်သောကြောင့် ပိုပျော်ကောင်းသည်! ကြိုက်သော အချိန်ဆိုင်းတွင် ကြိုက်သောနေရာ လည်ပတ်နိုင်သည်။</span>
+          </div>
         </div>
       </div>
     </div>
@@ -632,30 +892,49 @@
 
 <div class="day-divider container"><div class="day-divider-icon">✦</div></div>
 
-<!-- ════════════════ DAY 7 ════════════════ -->
+<!-- ════════════ DAY 7 — GRADUATION ════════════ -->
 <section class="day-section" id="day7">
   <div class="container">
     <div class="day-header">
       <div class="day-number">07</div>
       <div class="day-info">
-        <div class="day-label">Day Three · Wednesday</div>
+        <div class="day-label">
+          <span class="en">Day Three · Wednesday · The Most Special Day 💛</span>
+          <span class="mm">တတိယနေ့ · ဗုဒ္ဓဟူးနေ့ · အထူးဆုံးနေ့ 💛</span>
+        </div>
         <div class="day-title">The Big <em>Graduation</em> 🎓</div>
-        <div class="day-date">May 7, 2025</div>
+        <div class="day-title-mm"><em>ဘွဲ့နှင်းသဘင်</em> ကြီး 🎓 — Shinn ၏ ဂုဏ်ယူဖွယ်ရာ နေ့</div>
+        <div class="day-date">
+          <span class="en">May 7, 2025</span>
+          <span class="mm">မေ ၇၊ ၂၀၂၅</span>
+        </div>
       </div>
+    </div>
+
+    <div class="parent-note">
+      <span class="parent-note-icon">🥹</span>
+      <strong>မိဘများကို အထူး မှာကြားချင်ပါသည် —</strong><br>
+      ဒီနေ့က ကျွန်တော် <strong>Shinn</strong> ၏ <strong>Singapore Polytechnic</strong> တကျောင်းမှ ဘွဲ့ရသည့် နေ့ ဖြစ်ပါသည်။ ၃ နှစ်ကြာ ကြိုးစားမှု၏ အသီးအပွင့် ဖြစ်ပါသည်။ မိဘများ ကြွရောက်ပေးခြင်းသည် ကျွန်တော်အတွက် အကြီးမားဆုံး món ဆုကြီး ဖြစ်ပါသည်။ ဂုဏ်ယူပါသည် — ချစ်သောမိဘများ ❤️
     </div>
 
     <div class="timeline">
 
       <div class="block">
         <div class="block-dot filled"></div>
-        <div class="block-card">
+        <div class="block-card grad-highlight">
           <div class="block-meta">
             <span class="block-icon">🎓</span>
             <span class="block-time">1:30 PM</span>
-            <span class="block-tag tag-grad">Graduation</span>
+            <span class="block-tag tag-grad">
+              <span class="en">Graduation</span><span class="mm">ဘွဲ့နှင်းသဘင်</span>
+            </span>
           </div>
-          <div class="block-title">Graduation Ceremony</div>
-          <div class="block-body">Singapore Polytechnic. Caps, gowns, and proud smiles — the moment we've all been waiting for. 🥹</div>
+          <div class="block-title">Graduation Ceremony — Singapore Polytechnic</div>
+          <div class="block-title-mm">ဘွဲ့နှင်းသဘင် — Singapore Polytechnic</div>
+          <div class="block-body">
+            <span class="en-text">Caps, gowns, and proud smiles — the moment we've all been waiting for. Shinn receives his diploma in front of family. 🥹✨</span>
+            <span class="mm-text">ဦးထုပ်များ၊ ဝတ်စုံများ နှင့် ဂုဏ်ယူမှုများ — ကျွန်တော်တို့ အားလုံး စောင့်မျှော်ခဲ့သော ခဏ ဖြစ်သည်။ Shinn သည် မိဘများ ရှေ့တွင် ဒီပလိုမာ ရရှိမည်ဖြစ်သည်။ 🥹✨<br><br>မိဘများ — ဒီနေ့ ကြည့်ရှုနေမည် ဟု သိရုံဖြင့် ကျွန်တော် ဝမ်းသာ ရင်ဖိုနေပါသည်! ❤️</span>
+          </div>
         </div>
       </div>
 
@@ -665,10 +944,16 @@
           <div class="block-meta">
             <span class="block-icon">☕</span>
             <span class="block-time">4:00 – 6:00 PM</span>
-            <span class="block-tag tag-tip">Rest</span>
+            <span class="block-tag tag-tip">
+              <span class="en">Rest</span><span class="mm">နားနေချိန်</span>
+            </span>
           </div>
           <div class="block-title">Light Rest · Café Break</div>
-          <div class="block-body">Head back to my place, freshen up, and recharge. This buffer is important — you'll want to feel your best for the celebration dinner.</div>
+          <div class="block-title-mm">နားနေချိန် · ကော်ဖီဆိုင်</div>
+          <div class="block-body">
+            <span class="en-text">Head back, freshen up, and recharge. This buffer is important — you'll want to feel your best for the celebration dinner.</span>
+            <span class="mm-text">ည‌နေ ဆောင်းပါးစာ တစ်ဖက်ချပ်ပြီး ပြန်နားမည်ဖြစ်သည်။ ညစာ မတိုင်မီ ကောင်းကောင်းနားရှိစေရန် အရေးကြီးသည် — ညစာ ကောင်းကောင်း ခံစားနိုင်ရမည်! 😊</span>
+          </div>
         </div>
       </div>
 
@@ -678,35 +963,44 @@
           <div class="block-meta">
             <span class="block-icon">🥂</span>
             <span class="block-time">7:00 – 7:30 PM</span>
-            <span class="block-tag tag-event">Dinner — Book Ahead!</span>
+            <span class="block-tag tag-event">
+              <span class="en">Celebration Dinner</span><span class="mm">အထိမ်းအမှတ် ညစာ</span>
+            </span>
           </div>
-          <div class="block-title">Celebration Dinner</div>
-          <div class="block-body">Three great options — choose your vibe:</div>
-          <div class="options-grid" style="margin-top:1rem;">
+          <div class="block-title">Celebration Dinner — Choose Your Favourite!</div>
+          <div class="block-title-mm">ဘွဲ့ အထိမ်းအမှတ် ညစာ — ရွေးချယ်မည်!</div>
+          <div class="block-body">
+            <span class="en-text">Three wonderful options for our graduation celebration dinner:</span>
+            <span class="mm-text">မိသားစု ဘွဲ့ ဂုဏ်ပြုညစာ အတွက် ရွေးချယ်စရာ သုံးခု ရှိသည်:</span>
+          </div>
+          <div class="options-grid">
             <div class="option-card featured">
-              <div class="option-star">⭐ Best Experience</div>
+              <div class="option-star">
+                <span class="en">⭐ Best Experience</span>
+                <span class="mm">⭐ အကောင်းဆုံး</span>
+              </div>
               <div class="option-name">CÉ LA VI Restaurant</div>
               <ul class="option-perks">
-                <li>Marina Bay skyline view</li>
-                <li>Perfect graduation photos</li>
-                <li>Sunset timing at 7 PM</li>
-                <li>Premium rooftop vibe</li>
+                <li><span class="en">Marina Bay skyline view</span><span class="mm">Marina Bay ၏ မြင်ကွင်း</span></li>
+                <li><span class="en">Perfect graduation photos</span><span class="mm">ဘွဲ့ ဓာတ်ပုံ အကောင်းဆုံး</span></li>
+                <li><span class="en">Sunset at 7 PM — magical</span><span class="mm">နေဝင်ချိန် ည ၇ နာရီ — မှော်ဆန်သည်</span></li>
+                <li><span class="en">Rooftop premium vibe</span><span class="mm">အမိုးပေါ် မင်္ဂလာဆောင် ဟောသည်</span></li>
               </ul>
             </div>
             <div class="option-card">
               <div class="option-name">Wolfgang's Steakhouse</div>
               <ul class="option-perks">
-                <li>Classic fine dining</li>
-                <li>Family-friendly</li>
-                <li>Premium dry-aged beef</li>
+                <li><span class="en">Classic fine dining</span><span class="mm">ဂန္ထဝင် ဆိုင်ကောင်း</span></li>
+                <li><span class="en">Family-friendly</span><span class="mm">မိသားစုနှင့် သင့်လျော်</span></li>
+                <li><span class="en">Premium dry-aged beef</span><span class="mm">အရည်အသွေး မြင့် အသားကင်</span></li>
               </ul>
             </div>
             <div class="option-card">
               <div class="option-name">Burnt Ends</div>
               <ul class="option-perks">
-                <li>Modern Australian BBQ</li>
-                <li>Very popular — book early!</li>
-                <li>Casual yet special</li>
+                <li><span class="en">Modern BBQ restaurant</span><span class="mm">ခေတ်သစ် BBQ ဆိုင်</span></li>
+                <li><span class="en">Very popular — book early!</span><span class="mm">လူကြိုက်များ — စောစောဘွတ်ကင်!</span></li>
+                <li><span class="en">Casual but special</span><span class="mm">သာမန်ဟုသောကာမူ အထူး</span></li>
               </ul>
             </div>
           </div>
@@ -719,16 +1013,28 @@
 
 <div class="day-divider container"><div class="day-divider-icon">✦</div></div>
 
-<!-- ════════════════ DAY 8 ════════════════ -->
+<!-- ════════════ DAY 8 ════════════ -->
 <section class="day-section" id="day8">
   <div class="container">
     <div class="day-header">
       <div class="day-number">08</div>
       <div class="day-info">
-        <div class="day-label">Day Four · Thursday · Final Day</div>
+        <div class="day-label">
+          <span class="en">Day Four · Thursday · Final Day</span>
+          <span class="mm">စတုတ္ထနေ့ · ကြာသပတေး · နောက်ဆုံးနေ့</span>
+        </div>
         <div class="day-title">Sentosa & <em>Chinatown</em></div>
-        <div class="day-date">May 8, 2025</div>
+        <div class="day-title-mm">ဆင်တိုဆာ ကျွန်းနှင့် <em>တရုတ်ရပ်ကွက်</em></div>
+        <div class="day-date">
+          <span class="en">May 8, 2025</span>
+          <span class="mm">မေ ၈၊ ၂၀၂၅</span>
+        </div>
       </div>
+    </div>
+
+    <div class="parent-note">
+      <span class="parent-note-icon">💬</span>
+      <strong>မိဘများသိစေချင်သည် —</strong> ဒါက နောက်ဆုံးနေ့ ဖြစ်ပါသည်။ မနက်ပိုင်းတွင် ကမ္ဘာ့ ရေနေသတ္တဝါ အကြီးဆုံး အဆောက်အဦ တစ်ခုသို့ သွားမည်ဖြစ်ပြီး နေ့လည်တွင် တရုတ်ရပ်ကွက်၏ ဟောက်ကာ (ပြည်သူ့ ဈေးစင်) ပွဲကို ရောက်မည်ဖြစ်သည်။ မြန်မာ ဟင်းနဲ့ တူတူသော ဟင်းများ ရှာဖွေ၍ ဝမ်းဝအောင် ကုန်မည်! 🐟🍚
     </div>
 
     <div class="timeline">
@@ -742,7 +1048,11 @@
             <span class="block-tag tag-explore">Sentosa</span>
           </div>
           <div class="block-title">S.E.A. Aquarium (Oceanarium)</div>
-          <div class="block-body">One of the world's largest aquariums — over 100,000 marine animals. Allow 2–3 hours for a relaxed, family-paced visit. Perfect finale morning.</div>
+          <div class="block-title-mm">S.E.A. Aquarium — ငါးများ ပြတိုက်ကြီး</div>
+          <div class="block-body">
+            <span class="en-text">One of the world's largest aquariums — over 100,000 marine animals. Allow 2–3 hours for a relaxed, family-paced visit. Perfect finale morning.</span>
+            <span class="mm-text">ကမ္ဘာ့ အကြီးဆုံး ငါးပြတိုက်တစ်ခု — ရေနေသတ္တဝါ ၁၀၀,၀၀၀ ကျော် ကြည့်ရှုနိုင်သည်။ ၂ မှ ၃ နာရီ ကြာမည်ဖြစ်ပြီး မိသားစုအတွက် ကောင်းမွန်သောနေ့ ဖြစ်မည်။ ဒါသည် ခရီးစဉ်၏ နောက်ဆုံး မနက်ဖြစ်ပါသည် — ချစ်စရာကောင်းသော ကတိပြုမှု ဖြစ်သည်! 🐠</span>
+          </div>
         </div>
       </div>
 
@@ -752,15 +1062,27 @@
           <div class="block-meta">
             <span class="block-icon">🍚</span>
             <span class="block-time">2:00 – 3:30 PM</span>
-            <span class="block-tag tag-food">Lunch</span>
+            <span class="block-tag tag-food">
+              <span class="en">Lunch</span><span class="mm">နေ့လည်စာ</span>
+            </span>
           </div>
           <div class="block-title">Chinatown Hawker Centres</div>
+          <div class="block-title-mm">တရုတ်ရပ်ကွက် ဟောက်ကာ ဆိုင်ကြီးများ</div>
           <div class="block-body">
-            Head to Chinatown for your last great Singapore meal:
-            <ul>
-              <li>Chinatown Complex Hawker Centre — huge variety, local favourite</li>
-              <li>Maxwell Food Centre — very popular, famous stalls</li>
-            </ul>
+            <span class="en-text">
+              Head to Chinatown for your last great Singapore meal:
+              <ul>
+                <li>Chinatown Complex Hawker Centre — huge variety, local favourite</li>
+                <li>Maxwell Food Centre — very popular, famous stalls</li>
+              </ul>
+            </span>
+            <span class="mm-text">
+              တရုတ်ရပ်ကွက် သို့ သွား၍ စင်္ကာပူ ၏ နောက်ဆုံး ကောင်းသော နေ့လည်စာ စားမည်ဖြစ်ပါသည်:
+              <ul>
+                <li>Chinatown Complex Hawker Centre — ဟင်းအမျိုးမျိုး ရှိသော ဒေသခံ ကြိုက်ဆိုင်</li>
+                <li>Maxwell Food Centre — ဈေးသည်ကောင်းများ ရှိသော နာမည်ကြီး ဆိုင်</li>
+              </ul>
+            </span>
           </div>
         </div>
       </div>
@@ -770,11 +1092,19 @@
         <div class="block-card">
           <div class="block-meta">
             <span class="block-icon">🏠</span>
-            <span class="block-time">After 4:00 PM</span>
-            <span class="block-tag tag-tip">Pack & Rest</span>
+            <span class="block-time">
+              <span class="en">After 4:00 PM</span><span class="mm">မြောက်မြန်း ၄ နာရီနောက်</span>
+            </span>
+            <span class="block-tag tag-tip">
+              <span class="en">Pack & Rest</span><span class="mm">ပြန်ခြင်</span>
+            </span>
           </div>
           <div class="block-title">Head Back · Pack Up</div>
-          <div class="block-body">Return to the hotel, pack your bags, and soak in the last moments of a beautiful trip. Safe travels! ✈️</div>
+          <div class="block-title-mm">ဟိုတယ် ပြန်ကာ ထုပ်ပိုး</div>
+          <div class="block-body">
+            <span class="en-text">Return to the hotel, pack your bags, and soak in the last moments of a beautiful trip. Safe travels! ✈️</span>
+            <span class="mm-text">ဟိုတယ်သို့ ပြန်ကာ ပစ္စည်းများ ထုပ်ပိုးမည်ဖြစ်ပြီး ဒီလေး‌ ရက်တာ လှပသော ခရီးစဉ်ကြီး ၏ နောက်ဆုံး အမှတ်တရများကို ခံစားမည်ဖြစ်သည်။<br>ချစ်သောမိဘများ — ကလေးကို ချစ်ပါသည်! ✈️❤️</span>
+          </div>
         </div>
       </div>
 
@@ -785,17 +1115,42 @@
 <!-- FOOTER -->
 <footer>
   <div class="footer-title">Singapore · May 2025</div>
-  <p>A trip to remember, together. 💛</p>
-  <p style="margin-top:0.5rem; font-size:0.75rem; opacity:0.5;">Gardens by the Bay · Marina Bay · Sentosa · Johor Bahru · Singapore Polytechnic</p>
+  <p class="en">A trip to remember, together. 💛</p>
+  <p class="mm" style="display:none;">အတူတကွ ဖန်တီးသော မမေ့နိုင်သော ခရီး။ 💛</p>
+  <p style="margin-top:0.5rem; font-size:0.75rem; opacity:0.5;">
+    <span class="en">Gardens by the Bay · Marina Bay · Sentosa · Johor Bahru · Singapore Polytechnic</span>
+    <span class="mm">Gardens by the Bay · Marina Bay · Sentosa · Johor Bahru · Singapore Polytechnic</span>
+  </p>
+  <div class="footer-mm">
+    <p style="font-size:0.88rem; margin-top:1.2rem; color:rgba(255,255,255,0.6);">
+      🎓 Shinn ၏ ဘွဲ့ဆောင်မည့် ခရီးစဉ်ကြီး — ချစ်သောမိဘများ ကြွရောက်ပေးသည့်အတွက် ကျေးဇူးတင်ပါသည်။<br>
+      မိသားစုနှင့် မွေ့လျော်ပျော်ရွှင်စွာ ဖြတ်သန်းနိုင်မည်ဟု မျှော်လင့်ပါသည်။ ❤️
+    </p>
+  </div>
 </footer>
 
 <script>
-  // Intersection Observer for scroll animations
+  // ── Language Switch ──
+  function setLang(lang) {
+    document.body.classList.toggle('lang-mm', lang === 'mm');
+    document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+    document.getElementById('btn-mm').classList.toggle('active', lang === 'mm');
+
+    // footer p fix
+    document.querySelectorAll('footer p.en, footer p.mm').forEach(el => {
+      el.style.display = 'none';
+    });
+    if (lang === 'mm') {
+      document.querySelector('footer p.mm').style.display = 'block';
+    } else {
+      document.querySelector('footer p.en').style.display = 'block';
+    }
+  }
+
+  // ── Scroll Reveal ──
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-      }
+      if (entry.isIntersecting) entry.target.classList.add('visible');
     });
   }, { threshold: 0.12 });
 
@@ -804,7 +1159,7 @@
     observer.observe(el);
   });
 
-  // Nav dots
+  // ── Nav Dots ──
   const sections = ['day5','day6','day7','day8'];
   const dots = document.querySelectorAll('.nav-dot');
 
